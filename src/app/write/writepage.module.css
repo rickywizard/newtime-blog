@@ -1,0 +1,82 @@
+.input {
+  padding: 50px;
+  font-size: 64px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--text-color);
+}
+
+.input::placeholder {
+  color: var(--soft-text-color);
+}
+
+.editor {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  height: 700px;
+  position: relative;
+}
+
+.button {
+  z-index: 101;
+}
+
+.button, .addButton {
+  width: 36px;
+  height: 36px;
+  background-color: var(--bg);
+  border-radius: 50%;
+  border: 1px solid crimson;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.button:hover, .addButton:hover {
+  background-color: var(--soft-bg);
+}
+
+.addButton {
+  border-color: #1a8917;
+}
+
+.add {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: blue;
+  position: absolute;
+  width: 100%;
+  left: 50px;
+  z-index: 100;
+  transition: all 0.4s ease;
+}
+
+.show {
+
+}
+
+.textArea {
+  width: 100%;
+}
+
+.publish {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  padding: 10px 20px;
+  border: none;
+  background-color: crimson;
+  color: white;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.publish:hover {
+  background-color: brown;
+}
