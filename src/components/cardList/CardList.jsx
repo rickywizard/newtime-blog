@@ -3,35 +3,27 @@ import styles from './cardlist.module.css';
 import Pagination from '../pagination/Pagination';
 import Image from 'next/image';
 import Card from '../card/Card';
-// import { getDataPage } from '@/utils/getData';
+import { getDataPage } from '@/utils/getData';
 
-const getData = async () => {
-  const res = await fetch('http://localhost:3000/api/posts?page=1', {
-    cache: "no-store"
-  });
-
-  // ${process.env.SERVER_URL}/api/${route}?page=${page}
-  if (!res.ok) {
-    throw new Error('Failed fetching data');
-  }
-
-  return res.json();
-};
-
-const CardList = async ({ page }) => {
-  const data = await getData();
+const CardList = async ({ page, cat }) => {
+  const { posts, count } = await getDataPage('posts', page, cat);
 
   // console.log("data", data);
+
+  const POST_PER_PAGE = 2
+
+  const hasPrev = POST_PER_PAGE * (page - 1) > 0
+  const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Artikel Terbaru</h1>
       <div className={styles.posts}>
-        {data?.map((item, index) => (
+        {posts?.map((item, index) => (
           <Card item={item} key={item._id} />
         ))}
       </div>
-      <Pagination />
+      <Pagination page={page} hasPrev={hasPrev} hasNext={hasNext} />
     </div>
   );
 };

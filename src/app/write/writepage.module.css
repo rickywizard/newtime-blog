@@ -1,3 +1,13 @@
+@keyframes fadeIn {
+  from { display: none; transform: translateX(-40px); opacity: 0; }
+  to { transform: translateX(0px); opacity: 1;}
+}
+
+@keyframes slideaway {
+  from { display: flex; opacity: 1; }
+  to { transform: translateX(-40px); opacity: 0;}
+}
+
 .input {
   padding: 50px;
   font-size: 64px;
@@ -42,14 +52,17 @@
 
 .addButton {
   border-color: #1a8917;
+  cursor: pointer;
+}
+
+.point {
+  cursor: pointer;
 }
 
 .add {
   width: max-content;
-  display: flex;
   align-items: center;
   gap: 20px;
-  background-color: blue;
   position: absolute;
   width: 100%;
   left: 50px;
@@ -57,8 +70,14 @@
   transition: all 0.4s ease;
 }
 
-.show {
+.hide {
+  animation: slideaway 500ms;
+  display: none;
+}
 
+.show {
+  display: flex;
+  animation: fadeIn 500ms;
 }
 
 .textArea {

@@ -7,13 +7,15 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import Loader from '@/components/loader/Loader';
 
 export default function WritePage() {
-  
   const [open, setOpen] = useState(false);
-  
+
+  const [file, setFile] = useState(null);
+
   const [value, setValue] = useState('');
-  
+
   const { data, status } = useSession();
 
   console.log(data, status);
@@ -24,7 +26,7 @@ export default function WritePage() {
     return <Loader />;
   }
 
-  if (status === 'authenticated') {
+  if (status === 'unauthenticated') {
     router.push('/');
   }
 
@@ -42,37 +44,45 @@ export default function WritePage() {
             priority
           />
         </button>
-        
-          <div className={`${styles.add} ${open ? styles.show: ''}`}>
-            <button className={styles.addButton}>
+
+        <div className={`${styles.add} ${open ? styles.show : styles.hide}`}>
+          <input
+            type="file"
+            id="image"
+            onChange={(e) => e.target.files[0]}
+            style={{ display: 'none' }}
+          />
+          <button className={styles.addButton}>
+            <label className={styles.point} htmlFor="image">
               <Image
-                src="/assets/image.png"
+                src="/assets/image.svg"
                 alt="img"
                 width={16}
                 height={16}
                 priority
               />
-            </button>
-            <button className={styles.addButton}>
-              <Image
-                src="/assets/external.png"
-                alt="ext"
-                width={16}
-                height={16}
-                priority
-              />
-            </button>
-            <button className={styles.addButton}>
-              <Image
-                src="/assets/video.png"
-                alt="vid"
-                width={16}
-                height={16}
-                priority
-              />
-            </button>
-          </div>
-        
+            </label>
+          </button>
+          <button className={styles.addButton}>
+            <Image
+              src="/assets/upload.svg"
+              alt="ext"
+              width={16}
+              height={16}
+              priority
+            />
+          </button>
+          <button className={styles.addButton}>
+            <Image
+              src="/assets/video.svg"
+              alt="vid"
+              width={16}
+              height={16}
+              priority
+            />
+          </button>
+        </div>
+
         <ReactQuill
           className={styles.textArea}
           theme="bubble"
@@ -81,9 +91,7 @@ export default function WritePage() {
           placeholder="Ceritakan kisahmu..."
         />
       </div>
-      <div className={styles.publish}>
-        Publish
-      </div>
+      <div className={styles.publish}>Publish</div>
     </div>
   );
 }

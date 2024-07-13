@@ -1,12 +1,16 @@
 import CardList from '@/components/cardList/CardList';
 import styles from './blogpage.module.css';
 
-export default function Blog() {
+export default function Blog({ searchParams }) {
+  
+  const page = parseInt(searchParams.page) || 1
+  const { cat } = searchParams
+  
   return (
     <main className={styles.container}>
-      <h1 className={styles.title}>Lifestyle</h1>
+      <h1 className={styles.title}>{cat} Blog</h1>
       <div className={styles.content}>
-        <CardList />
+        <CardList page={page} cat={cat} />
       </div>
     </main>
   );
